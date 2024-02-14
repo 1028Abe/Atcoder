@@ -1,0 +1,14 @@
+version: "3.3"
+service:
+  atcoder_dev:
+    build:
+      context: Dockerfile
+    image: atcoder_dev
+    container_name: atcoder_dev
+    volumes:
+      - type: bind
+        source: .
+        target: /atcoder_dev
+    stdin_open: true
+    tty: true
+    working_dir: /atcoder_dev/build
