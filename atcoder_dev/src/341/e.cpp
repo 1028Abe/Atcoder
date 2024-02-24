@@ -57,13 +57,13 @@ int main(){
     }
     RSQ<int> seg(n-1);
     for(int i = 0; i < n-1; i++){
-        if(S[i]==S[i+1]) seg.update(i, 0);
-        else seg.update(i, 1);
+        if(S[i]!=S[i+1]) seg.update(i, 1);
     }
 
     for(int i = 0; i < q; i++){
         int x, l, r;
         cin >> x >> l >> r;
+        l--, r--;
         if(x==1){
             seg.update(l-1, 1-seg.get(l-1));
             seg.update(r, 1-seg.get(r));
