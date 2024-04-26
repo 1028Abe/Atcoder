@@ -2,68 +2,47 @@
 
 using namespace std;
 
+template<typename T>
+void copy(const vector<T> &a, vector<T> &b){
+    int n = (int)a.size();
+    for(int i = 0; i < n; i++){
+        b[i] = a[i];
+    }
+}
+
 int main(){
 
-    int N, X;
-    cin >> N  >> X;
+    int n, x;
+    cin >> n >> x;
+    vector<long long> A(n-1);
 
-    vector<int> a;
-    int max_znt = 0;
-    int min_znt = 101;
-    int sum_znt = 0;
-
-    for(int i = 0; i < N - 1; i++){
-        int x;
-        cin >> x;
-        sum_znt += x;
-        max_znt = max(x, max_znt);
-        min_znt = min(x, min_znt);
-        a.push_back(x);
+    for(long long &a:A) {
+        cin >> a;
     }
 
-    sort(a.begin(), a.end());
+    for(int i = 0; i < 101; i++){
+        vector<long long> b(n);
+        copy(A, b);
+        b[n-1] = i;
+        sort(b.begin(), b.end());
 
-    if(a.size()==2){
-        if(a[0]==X) {
-            cout << 0 << endl;
-            return 0;
-        }
-        else if(a[1]==X) {
-            cout << a[1] << endl;
-            return 0;
-        }
-    }
+        //for(auto bb:b) cout << bb << " ";
+        //cout << endl;
 
-    int tmp = X - (sum_znt -(max_znt + min_znt));
-    // cout << max_znt << endl;
-    // cout << min_znt << endl;
-    // cout << tmp << endl;
-    if(tmp > 100) {
-        cout << -1 << endl;
-        return 0;
-    }
-    else {
-        if(tmp == 0) {
-            cout << 0 << endl;
-            return 0;
+        long long sum = 0;
+        for(int j = 1; j <= n-2; j++){
+            sum += b[j];
         }
-        else if(tmp != 0)
-        if(tmp < max_znt && tmp > min_znt) {
-            cout << tmp << endl;
+
+        //cout << sum << endl;
+
+        if(sum>=x){
+            cout << i << endl;
             return 0;
         }
     }
 
-    if(tmp + max_znt == X){
-        cout << max_znt << endl;
-        return 0;
-    } 
-    else if(tmp + min_znt == X){
-        cout << 0 << endl;
-        return 0;
-    }
-
-    cout << -1 << endl;
+    cout << "-1" << endl;
 
     return 0;
 }
